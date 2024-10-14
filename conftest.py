@@ -1,9 +1,8 @@
 from urls import UrlsPage
+from pages.base_page import BasePage
 from locators.base_page_locators import BasePageLocators
 from data_user import DataUser
 from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 import pytest
 
 
@@ -21,8 +20,9 @@ def driver(request):
 
 @pytest.fixture()
 def login(driver):
-    driver.get(UrlsPage.BASE_URL + UrlsPage.LOGIN_PAGE)
-    driver.find_element(*BasePageLocators.INPUT_EMAIL).send_keys(DataUser.LOGIN_USER)
-    driver.find_element(*BasePageLocators.INPUT_PASSWORD).send_keys(DataUser.PASSWORD_USER)
-    driver.find_element(*BasePageLocators.BUTTON_LOGIN).click()
-    WebDriverWait(driver, 4).until(EC.visibility_of_element_located(BasePageLocators.TITLE_CONSTRUCTOR))
+    login = BasePage(driver, UrlsPage.BASE_URL + UrlsPage.LOGIN_PAGE)
+    login.open_page()
+    login.send_data(BasePageLocators.INPUT_EMAIL, DataUser.LOGIN_USER)
+    login.send_data(BasePageLocators.INPUT_PASSWORD, DataUser.PASSWORD_USER)
+    login.click_to_element(BasePageLocators.BUTTON_LOGIN)
+    login.wait_visibility_element(BasePageLocators.TITLE_CONSTRUCTOR)

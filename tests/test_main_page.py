@@ -29,7 +29,7 @@ class TestMainPage:
         main_page.open_page()
         main_page.wait_title_page()
         main_page.click_to_card_ingredient()
-        check_for_modal_window = main_page.get_attribute_by_class_opening_modal_window()
+        check_for_modal_window = main_page.confirmation_modal_window_opening()
         assert check_for_modal_window is True
 
     @allure.title('Проверка, что всплывающее окно закрывается кликом по крестику')
@@ -40,7 +40,7 @@ class TestMainPage:
         main_page.wait_title_page()
         main_page.click_to_card_ingredient()
         main_page.close_modal_window_to_card_ingredient()
-        check_for_modal_window = main_page.get_attribute_by_class_opening_modal_window()
+        check_for_modal_window = main_page.confirmation_modal_window_opening()
         assert check_for_modal_window is False
 
     @allure.title('Проверка увеличения каунтера ингредиента при добавлении его в заказ')

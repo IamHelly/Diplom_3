@@ -17,30 +17,30 @@ class BasePage:
     def wait_visibility_element(self, locator):
         return WebDriverWait(self.driver, 8).until(EC.visibility_of_element_located(locator))
 
+    def wait_to_clickable_element(self, locator):
+        return WebDriverWait(self.driver, 8).until(EC.element_to_be_clickable(locator))
+
     def scroll_to_element(self, locator):
-        element = WebDriverWait(self.driver, 4).until(EC.visibility_of_element_located(locator))
+        element = self.wait_visibility_element(locator)
         self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
     def click_to_element(self, locator):
-        return WebDriverWait(self.driver, 8).until(EC.element_to_be_clickable(locator)).click()
+        return self.wait_to_clickable_element(locator).click()
 
     def get_text(self, locator):
-        return WebDriverWait(self.driver, 4).until(EC.visibility_of_element_located(locator)).text
+        return self.wait_visibility_element(locator).text
 
     def get_current_url(self):
         return self.driver.current_url
 
     def send_data(self, locator, value):
-        return WebDriverWait(self.driver, 4).until(EC.element_to_be_clickable(locator)).send_keys(value)
+        return self.wait_to_clickable_element(locator).send_keys(value)
 
     def get_attribute_by_class(self, locator):
         return self.driver.find_element(*locator).get_attribute('class')
 
     def get_all_elements(self, locator):
         return self.driver.find_elements(*locator)
-
-    def wait_to_clickable_element(self, locator):
-        return WebDriverWait(self.driver, 4).until(EC.element_to_be_clickable(locator))
 
     def check_open(self, value1, value2):
         if value1 in value2:

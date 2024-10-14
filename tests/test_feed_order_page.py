@@ -11,7 +11,7 @@ class TestFeedOrderPage:
         feed_orders_page.open_page()
         feed_orders_page.wait_title_order_feed_page()
         feed_orders_page.click_to_card_order()
-        check_for_modal_window = feed_orders_page.get_attribute_by_class_opening_modal_window()
+        check_for_modal_window = feed_orders_page.confirmation_modal_window_opening()
         assert check_for_modal_window is True
 
     @allure.title('Проверка отображения заказов залогиненного пользователя на странице "Лента заказов"')
