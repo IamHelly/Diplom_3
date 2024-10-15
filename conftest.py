@@ -1,7 +1,5 @@
 from urls import UrlsPage
-from pages.base_page import BasePage
-from locators.base_page_locators import BasePageLocators
-from data_user import DataUser
+from pages.login_page import LoginPage
 from selenium import webdriver
 import pytest
 
@@ -20,9 +18,9 @@ def driver(request):
 
 @pytest.fixture()
 def login(driver):
-    login = BasePage(driver, UrlsPage.BASE_URL + UrlsPage.LOGIN_PAGE)
+    login = LoginPage(driver, UrlsPage.BASE_URL + UrlsPage.LOGIN_PAGE)
     login.open_page()
-    login.send_data(BasePageLocators.INPUT_EMAIL, DataUser.LOGIN_USER)
-    login.send_data(BasePageLocators.INPUT_PASSWORD, DataUser.PASSWORD_USER)
-    login.click_to_element(BasePageLocators.BUTTON_LOGIN)
-    login.wait_visibility_element(BasePageLocators.TITLE_CONSTRUCTOR)
+    login.send_email()
+    login.send_password()
+    login.click_to_button_login()
+    login.wait_title_constructor_page()
